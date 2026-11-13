@@ -8,6 +8,25 @@ A **Qwen3-VL-2B** vision-language model fine-tuned to give a short **Chain-of-Ca
 
 Full documentation (method, architecture, deployment, results, IEEE references): open [`CoC_73p2_documentation.html`](CoC_73p2_documentation.html) in a browser.
 
+## Demo: live testbed drive
+
+[![CoC model running live on the testbed vehicle](media/demo_preview.gif)](media/testbed_coc_demo.mp4)
+
+The model runs live on the testbed vehicle in autonomous mode. Every 2 seconds it reads the last four camera frames and writes one CoC line in the bottom bar, here *"Slow down due to a cyclist ahead in the lane."* (about 0.45 s per answer).
+
+▶️ **Full 2-minute clip:** [`media/testbed_coc_demo.mp4`](media/testbed_coc_demo.mp4) (testbed drive, 6:30–8:30)
+
+## What is Chain-of-Causation?
+
+A normal driving model only outputs an action. A **Chain-of-Causation** model also says *why*. It links what the camera sees (cause) to the driving decision (effect) in one short sentence:
+
+```
+camera frames  ->  what is happening (cause)  ->  what to do (decision)
+"Slow down"  +  "due to a cyclist ahead in the lane"
+```
+
+This makes every decision readable and easy to check. It is the same reasoning style used by vision-language-action driving models such as NVIDIA Alpamayo. This project trains a small 2B model to produce it in real time on Indian roads.
+
 ---
 
 ## Model lineage
@@ -48,6 +67,7 @@ deployment/             real-time scripts: live_coc_single.py (CoC overlay), liv
 results/                LingoQA scores, cleanup summaries, video test results
 checkpoint/             LoRA adapter config, trainer state and training logs (no weights)
 model/merged_sbfix_ck1500/   config, tokenizer and chat template (no weights)
+media/                  demo video of the live testbed drive + GIF preview
 COMMANDS.txt            every command to install, run, evaluate and retrain
 OVERVIEW_SUMMARY.txt    short project summary
 ```
